@@ -1,0 +1,172 @@
+:root {
+  --vert-fonce: #0d3b2e;
+  --vert: #1a6b5a;
+  --or: #d4a853;
+  --fond: #f5f0e8;
+  --blanc: #ffffff;
+  --texte: #1c1c1c;
+  --gris: #5a5a5a;
+  --bordure: #e0dbd0;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: system-ui, "Segoe UI", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--texte);
+  background: var(--fond);
+}
+
+h1, h2, h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--vert-fonce);
+  line-height: 1.3;
+}
+
+button { font-family: inherit; cursor: pointer; }
+button:focus-visible { outline: 3px solid var(--or); outline-offset: 2px; }
+
+/* ---------- Structure ---------- */
+.app { min-height: 100vh; display: flex; flex-direction: column; }
+.corps { flex: 1; display: flex; }
+
+.entete {
+  background: linear-gradient(135deg, var(--vert-fonce), var(--vert));
+  color: var(--blanc);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.logo {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--or), #e8c070);
+  color: var(--vert-fonce);
+  font-family: Georgia, serif;
+  font-size: 21px; font-weight: bold;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.titre-site { font-size: 18px; font-weight: bold; letter-spacing: 1px; }
+.sous-titre { font-size: 11px; color: #a8d5c5; letter-spacing: 1px; }
+
+.contenu {
+  flex: 1;
+  padding: 22px 16px 100px;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ---------- Contenu des pages ---------- */
+.titre-page { font-size: 24px; margin-bottom: 8px; }
+
+.intro-page {
+  color: var(--gris);
+  font-size: 15px;
+  margin-bottom: 8px;
+  max-width: 620px;
+}
+
+.titre-page + .intro-page { margin-bottom: 22px; }
+.titre-page { border-bottom: 3px solid var(--or); padding-bottom: 10px; display: inline-block; }
+
+.carte {
+  background: var(--blanc);
+  border-radius: 12px;
+  border: 1px solid var(--bordure);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.carte h2 { font-size: 19px; margin-bottom: 10px; }
+.carte p { color: var(--gris); margin-bottom: 10px; }
+.carte p:last-child { margin-bottom: 0; }
+
+/* ---------- Barre d'onglets (téléphone) ---------- */
+.nav-basse {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  display: flex;
+  background: var(--blanc);
+  border-top: 1px solid var(--bordure);
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.06);
+  z-index: 30;
+}
+
+.nav-item {
+  flex: 1;
+  min-height: 58px;
+  padding: 8px 2px;
+  background: none;
+  border: none;
+  border-top: 3px solid transparent;
+  color: var(--gris);
+  font-size: 11px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+
+.nav-item.actif {
+  color: var(--vert);
+  border-top-color: var(--or);
+  background: #f3faf7;
+  font-weight: 600;
+}
+
+/* ---------- Barre latérale (ordinateur) ---------- */
+.nav-laterale { display: none; }
+
+@media (min-width: 820px) {
+  .nav-basse { display: none; }
+  .contenu { padding: 32px 32px 60px; margin: 0; }
+
+  .nav-laterale {
+    display: flex;
+    flex-direction: column;
+    width: 240px;
+    flex-shrink: 0;
+    background: var(--vert-fonce);
+    padding: 16px 0;
+  }
+
+  .nav-laterale-titre {
+    color: rgba(255,255,255,0.35);
+    font-size: 10px;
+    letter-spacing: 2px;
+    padding: 6px 20px 10px;
+  }
+
+  .nav-lat-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    background: none;
+    border: none;
+    border-left: 3px solid transparent;
+    color: #a8d5c5;
+    font-size: 14px;
+    text-align: left;
+  }
+
+  .nav-lat-item:hover { background: rgba(255,255,255,0.05); }
+
+  .nav-lat-item.actif {
+    color: var(--or);
+    border-left-color: var(--or);
+    background: rgba(212,168,83,0.12);
+    font-weight: 600;
+  }
+}
