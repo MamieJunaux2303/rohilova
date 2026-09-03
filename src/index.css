@@ -170,3 +170,90 @@ button:focus-visible { outline: 3px solid var(--or); outline-offset: 2px; }
     font-weight: 600;
   }
 }
+/* ---------- Fiches ---------- */
+.compteur {
+  font-size: 13px;
+  color: var(--gris);
+  margin-bottom: 16px;
+}
+
+.grille-fiches {
+  display: grid;
+  gap: 16px;
+}
+
+.fiche {
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-top: 3px solid var(--vert);
+  border-radius: 12px;
+  padding: 18px;
+}
+
+.fiche-haut {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.etiquette {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 10px;
+  background: #eef4f1;
+  color: var(--vert);
+}
+
+.etiquette.valide {
+  background: #fbf3e0;
+  color: #8a6a20;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.fiche-titre { font-size: 18px; margin-bottom: 6px; }
+
+.fiche-pratique {
+  font-size: 14px;
+  font-style: italic;
+  color: var(--vert);
+  margin-bottom: 10px;
+}
+
+.fiche-resume {
+  font-size: 15px;
+  color: var(--gris);
+  margin-bottom: 14px;
+}
+
+.fiche-meta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: var(--gris);
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f0ede7;
+  margin-bottom: 12px;
+}
+
+.fiche-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.fiche-notion {
+  font-size: 13px;
+  color: var(--gris);
+  line-height: 1.8;
+}
+
+.fiche-notion strong { color: var(--texte); }
+
+@media (min-width: 900px) {
+  .grille-fiches { grid-template-columns: 1fr 1fr; }
+}
