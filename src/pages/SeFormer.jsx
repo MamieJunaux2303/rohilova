@@ -1,14 +1,21 @@
 import { useState } from "react";
 import { CADRES } from "../data/cadres";
 import ChaineTD from "./ChaineTD";
+import { PARCOURS } from "../data/parcours";
+import { ParcoursCarte, ParcoursVue } from "./Parcours";
 import { ArrowLeft, BookOpen, Route, Clock } from "lucide-react";
 
 export default function SeFormer() {
   const [onglet, setOnglet] = useState("cadres");
-  const [cadreOuvert, setCadreOuvert] = useState(null);
+    const [cadreOuvert, setCadreOuvert] = useState(null);
+  const [parcoursOuvert, setParcoursOuvert] = useState(null);
 
   if (cadreOuvert) {
     return <CadreDetail cadre={cadreOuvert} onRetour={() => setCadreOuvert(null)} />;
+  }
+
+  if (parcoursOuvert) {
+    return <ParcoursVue parcours={parcoursOuvert} onRetour={() => setParcoursOuvert(null)} />;
   }
 
   return (
@@ -63,12 +70,10 @@ export default function SeFormer() {
           )}
         </div>
       ) : (
-        <div className="vide">
-          <p className="vide-titre">Le premier parcours arrive bientôt</p>
-          <p>
-            Construire une séquence en sept moments, ancrée dans une pratique
-            sociale de votre région.
-          </p>
+                <div className="grille-fiches">
+          {PARCOURS.map((p) => (
+            <ParcoursCarte key={p.id} parcours={p} onOuvrir={() => setParcoursOuvert(p)} />
+          ))}
         </div>
       )}
     </>

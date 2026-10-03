@@ -872,3 +872,268 @@ button:focus-visible { outline: 3px solid var(--or); outline-offset: 2px; }
   padding-left: 22px;
   text-indent: -22px;
 }
+/* ═════════════════════════════════════════════════════════════
+   PARCOURS — séance 7b
+   ═════════════════════════════════════════════════════════════ */
+
+/* ---------- Progression ---------- */
+.progression { margin: 4px 0 14px; }
+
+.progression-barre {
+  height: 8px;
+  background: #e7e1d5;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progression-remplie {
+  height: 100%;
+  background: var(--vert);
+  border-radius: 4px;
+  transition: width 0.3s;
+}
+
+.progression-texte {
+  display: block;
+  margin-top: 5px;
+  font-size: 13px;
+  color: var(--gris);
+}
+
+/* ---------- Navigation entre les étapes ---------- */
+.etapes-nav {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 4px 0 14px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--bordure);
+}
+
+.etape-puce {
+  --couleur-moment: var(--vert-fonce);
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 44px;
+  padding: 6px 13px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--vert-fonce);
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-bottom: 4px solid var(--couleur-moment);
+  border-radius: 10px;
+  white-space: nowrap;
+}
+
+.etape-puce.faite { background: #eef4f1; }
+
+.etape-puce.actif {
+  background: var(--couleur-moment);
+  border-color: var(--couleur-moment);
+  color: var(--blanc);
+}
+
+/* ---------- Contenu d'une étape ---------- */
+.etape {
+  max-width: 680px;
+  padding-top: 18px;
+}
+
+.sous-titre-etape {
+  font-size: 18px;
+  margin: 26px 0 12px;
+}
+
+.figure-parcours {
+  margin: 22px 0 6px;
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.figure-parcours img { display: block; width: 100%; height: auto; }
+
+.figure-parcours figcaption { margin-top: 8px; text-align: center; font-size: 14px; }
+
+.figure-parcours a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  color: var(--vert);
+  font-weight: 600;
+}
+
+/* Trois temps */
+.trois-temps { display: grid; gap: 14px; }
+
+.temps-titre {
+  font-size: 15px;
+  color: var(--vert);
+  margin-bottom: 6px;
+}
+
+.temps-liste { list-style: none; display: grid; gap: 8px; }
+
+.temps-moment {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.temps-moment strong { display: block; color: var(--vert-fonce); }
+.temps-accroche { display: block; font-size: 14px; color: var(--gris); }
+
+.badge-moment { flex-shrink: 0; display: block; }
+
+/* En-tête d'un moment */
+.moment-entete {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.moment-numero {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gris);
+}
+
+.moment-titre { font-size: 21px; }
+
+.moment-reperes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin: 4px 0 18px;
+  font-size: 14px;
+  color: var(--gris);
+}
+
+.moment-reperes span { display: inline-flex; align-items: center; gap: 5px; }
+
+/* Fiche du moment : intitulé puis contenu */
+.moment-fiche {
+  border-left: 4px solid var(--couleur-moment);
+  padding-left: 16px;
+  margin-bottom: 20px;
+}
+
+.moment-fiche dt {
+  font-weight: 700;
+  color: var(--vert-fonce);
+  margin-top: 12px;
+}
+
+.moment-fiche dt:first-child { margin-top: 0; }
+.moment-fiche dd { color: var(--gris); line-height: 1.65; }
+
+.vigilance,
+.exemple-moment,
+.a-vous {
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-bottom: 14px;
+}
+
+.vigilance { background: #fbf3e0; border: 1px solid #ecd9a8; }
+.exemple-moment { background: var(--blanc); border: 1px solid var(--bordure); }
+.exemple-moment p { font-style: italic; }
+.a-vous { background: #eef4f1; border: 1px solid #cfe2d9; }
+
+.vigilance-titre,
+.exemple-titre,
+.a-vous-titre {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.vigilance-titre { color: #7a5a14; }
+
+.a-vous-critere {
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--gris);
+}
+
+/* Synthèse */
+.criteres,
+.frise-exemple {
+  list-style: none;
+  display: grid;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.critere,
+.frise-exemple li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.critere strong { color: var(--vert-fonce); margin-right: 4px; }
+
+.frise-exemple li {
+  border-left: 4px solid var(--couleur-moment);
+  padding-left: 12px;
+}
+
+.frise-exemple strong { color: var(--vert-fonce); }
+.frise-exemple p { color: var(--gris); font-size: 15px; }
+
+/* ---------- Pied d'étape ---------- */
+.etape-pied {
+  max-width: 680px;
+  margin-top: 26px;
+  padding-top: 18px;
+  border-top: 1px solid var(--bordure);
+}
+
+.etape-case {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  font-weight: 600;
+  color: var(--vert-fonce);
+  cursor: pointer;
+}
+
+.etape-case input { width: 22px; height: 22px; accent-color: var(--vert); }
+
+.etape-boutons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.etape-boutons .bouton-retour { margin-bottom: 0; }
+
+.bouton-suivant {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  min-height: 44px;
+  padding: 10px 18px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--vert-fonce);
+  background: linear-gradient(135deg, var(--or), #e8c070);
+  border: none;
+  border-radius: 22px;
+}
+
+.bouton-suivant:hover { filter: brightness(1.05); }
+
+@media (min-width: 820px) {
+  .trois-temps { grid-template-columns: repeat(3, 1fr); }
+}
