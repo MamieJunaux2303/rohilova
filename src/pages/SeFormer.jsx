@@ -5,10 +5,12 @@ import { PARCOURS } from "../data/parcours";
 import { ParcoursCarte, ParcoursVue } from "./Parcours";
 import { ArrowLeft, BookOpen, Route, Clock } from "lucide-react";
 
-export default function SeFormer() {
-  const [onglet, setOnglet] = useState("cadres");
+export default function SeFormer({ intention }) {
+  const [onglet, setOnglet] = useState(intention?.parcours ? "parcours" : "cadres");
     const [cadreOuvert, setCadreOuvert] = useState(null);
-  const [parcoursOuvert, setParcoursOuvert] = useState(null);
+  const [parcoursOuvert, setParcoursOuvert] = useState(
+    () => PARCOURS.find((p) => p.id === intention?.parcours) || null
+  );
 
   if (cadreOuvert) {
     return <CadreDetail cadre={cadreOuvert} onRetour={() => setCadreOuvert(null)} />;

@@ -20,6 +20,15 @@ const ESPACES = [
 
 export default function App() {
   const [pageActive, setPageActive] = useState("accueil");
+  // Ce qu'il faut ouvrir en arrivant sur la page (une fiche,
+  // un parcours, un filtre…), ou null
+  const [intention, setIntention] = useState(null);
+
+  function aller(id, nouvelleIntention = null) {
+    setPageActive(id);
+    setIntention(nouvelleIntention);
+    window.scrollTo(0, 0);
+  }
 
   const espace = ESPACES.find((e) => e.id === pageActive);
   const PageCourante = espace.composant;
@@ -29,7 +38,7 @@ export default function App() {
       <header className="entete">
         <button
           className="entete-accueil"
-          onClick={() => setPageActive("accueil")}
+          onClick={() => aller("accueil")}
           aria-label="ROHILOVA — retour à l'accueil"
         >
           <img src={logo} alt="" className="entete-logo" />
@@ -45,7 +54,7 @@ export default function App() {
               <button
                 key={e.id}
                 className={e.id === pageActive ? "nav-lat-item actif" : "nav-lat-item"}
-                onClick={() => setPageActive(e.id)}
+                onClick={() => aller(e.id)}
               >
                 <Icone size={18} />
                 <span>{e.label}</span>
@@ -56,7 +65,7 @@ export default function App() {
 
                 <main className="contenu">
           <Suspense fallback={<p className="chargement">Chargement de la carte…</p>}>
-            <PageCourante />
+            <PageCourante key={pageActive} aller={aller} intention={intention} />
           </Suspense>
         </main>
       </div>
@@ -68,7 +77,7 @@ export default function App() {
             <button
               key={e.id}
               className={e.id === pageActive ? "nav-item actif" : "nav-item"}
-              onClick={() => setPageActive(e.id)}
+              onClick={() => aller(e.id)}
               aria-current={e.id === pageActive ? "page" : undefined}
             >
               <Icone size={20} />

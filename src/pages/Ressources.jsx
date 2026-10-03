@@ -16,13 +16,15 @@ function sansAccent(t) {
   return t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
-export default function Ressources() {
+export default function Ressources({ intention }) {
   const [recherche, setRecherche] = useState("");
   const [niveau, setNiveau] = useState(TOUS);
   const [serie, setSerie] = useState(TOUS);
   const [notion, setNotion] = useState(TOUS);
   const [type, setType] = useState(TOUS);
-  const [ficheOuverte, setFicheOuverte] = useState(null);
+  const [ficheOuverte, setFicheOuverte] = useState(
+    () => FICHES.find((f) => f.id === intention?.fiche) || null
+  );
 
   if (ficheOuverte) {
     return <FicheDetail fiche={ficheOuverte} onRetour={() => setFicheOuverte(null)} />;
@@ -78,7 +80,7 @@ export default function Ressources() {
           type="search"
           value={recherche}
           onChange={(e) => setRecherche(e.target.value)}
-          placeholder="Rechercher une notion, une pratique, une région…"
+          placeholder="Notion, pratique, région…"
           aria-label="Rechercher une fiche"
         />
       </div>

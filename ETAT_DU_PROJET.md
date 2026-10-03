@@ -37,6 +37,9 @@ Voir Rohilova_CDC_v3.docx pour le cahier des charges complet.
 7. Se former : cadre de la transposition didactique (définition, utilité,
    chaînes de Verret, Chevallard, Develay, Perrenoud, exemple malgache) ;
    parcours des sept moments (9 étapes, progression en localStorage)
+8. Carte : 23 régions (vue nationale) et 119 districts (vue régionale),
+   colorées selon le nombre de fiches, filtres notion et niveau,
+   chargement à la demande (lazy). Source geoBoundaries CC BY 4.0.
 
 ## Fichiers existants
 - src/data/fiches.js : CURRICULUMS, SERIES, NIVEAUX, NOTIONS, TYPES,
@@ -58,7 +61,6 @@ Voir Rohilova_CDC_v3.docx pour le cahier des charges complet.
 - public/sept-moments/ : badges et figures des sept moments (SVG)
 
 ## Reste à faire
-8. Espace Carte : 23 régions de Madagascar en GeoJSON
 9. Accueil et finitions mobiles
 10. Transformation en PWA (fonctionnement hors connexion)
 11. Mise en ligne (Netlify)

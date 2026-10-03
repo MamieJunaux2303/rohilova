@@ -1,33 +1,9 @@
 import { useState } from "react";
 import { MOMENTS, TEMPS } from "../data/parcours";
+import { lireProgression, enregistrerProgression } from "../data/progression";
 import {
   ArrowLeft, ArrowRight, Check, Clock, Maximize2, BarChart3,
 } from "lucide-react";
-
-// ─── Progression enregistrée sur l'appareil ──────────────────
-// localStorage garde des données dans le navigateur, même après
-// fermeture de la page. Il peut être indisponible (navigation
-// privée, stockage plein) : d'où les try / catch.
-
-function cle(parcours) {
-  return "rohilova:parcours:" + parcours.id;
-}
-
-function lireProgression(parcours) {
-  try {
-    return JSON.parse(localStorage.getItem(cle(parcours))) || [];
-  } catch {
-    return [];
-  }
-}
-
-function enregistrerProgression(parcours, liste) {
-  try {
-    localStorage.setItem(cle(parcours), JSON.stringify(liste));
-  } catch {
-    // Stockage indisponible : la progression ne sera pas gardée.
-  }
-}
 
 function trouverMoment(id) {
   return MOMENTS.find((m) => m.id === id);
@@ -40,7 +16,7 @@ function nomEtape(id) {
 }
 
 // ─── Barre de progression ────────────────────────────────────
-function Progression({ faites, total }) {
+export function Progression({ faites, total }) {
   // À VOUS : calculer le pourcentage d'étapes terminées, arrondi à l'unité
   const pourcentage = 0;
   return (

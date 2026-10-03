@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { FICHES, NOTIONS, NIVEAUX, libelleNiveau } from "../data/fiches";
+import { FICHES, NOTIONS, NIVEAUX } from "../data/fiches";
 import { REGIONS, TOUTES_REGIONS, libelleRegion } from "../data/carte-regions";
 import { VUE_NATIONALE, TRACE_REGIONS, TRACE_DISTRICTS } from "../data/carte-trace";
 import { FicheDetail } from "./Ressources";
-import { ArrowLeft, MapPin, Globe } from "lucide-react";
+import FicheMini from "./FicheMini";
+import { ArrowLeft, MapPin, Globe, TriangleAlert } from "lucide-react";
 
 const TOUS = "Tous";
 
@@ -33,8 +34,8 @@ function surTouche(action) {
   };
 }
 
-export default function Carte() {
-  const [notion, setNotion] = useState(TOUS);
+export default function Carte({ intention }) {
+  const [notion, setNotion] = useState(intention?.notion || TOUS);
   const [niveau, setNiveau] = useState(TOUS);
   const [regionId, setRegionId] = useState(null);
   const [districtId, setDistrictId] = useState(null);
@@ -62,6 +63,11 @@ export default function Carte() {
   }
 
   const partout = fiches.filter((f) => f.region === TOUTES_REGIONS);
+
+  // Fiches dont la région n'existe pas (faute de frappe dans fiches.js)
+  const inconnues = FICHES.filter(
+    (f) => f.region !== TOUTES_REGIONS && !REGIONS.some((r) => r.id === f.region)
+  );
   const region = REGIONS.find((r) => r.id === regionId);
 
   function choisirRegion(id) {
@@ -95,6 +101,17 @@ export default function Carte() {
           </select>
         </label>
       </div>
+
+      {inconnues.length > 0 && (
+        <div className="alerte" role="alert">
+          <TriangleAlert size={18} />
+          <p>
+            {pluriel(inconnues.length, "fiche")} hors de la carte : région inconnue
+            dans fiches.js ({inconnues.map((f) => "« " + f.region + " »").join(", ")}).
+            Utilisez l'identifiant exact d'une région de carte-regions.js.
+          </p>
+        </div>
+      )}
 
       <div className="carte-zone">
         <div className="carte-cadre">
@@ -327,18 +344,5 @@ function PanneauRegion({ region, fiches, districtId, onDistrict, onRetour, onFic
         })}
       </ul>
     </>
-  );
-}
-
-// ─── Une fiche en version courte ─────────────────────────────
-function FicheMini({ fiche, onClick }) {
-  return (
-    <button className="fiche-mini" onClick={onClick}>
-      <span className="fiche-mini-titre">{fiche.titre}</span>
-      <span className="fiche-mini-pratique">{fiche.pratique}</span>
-      <span className="fiche-mini-meta">
-        {fiche.type}, {libelleNiveau(fiche.niveau)}, {fiche.notion}
-      </span>
-    </button>
   );
 }
