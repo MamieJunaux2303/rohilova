@@ -8,6 +8,7 @@ import {
   Download, ArrowLeft, BookMarked, Lightbulb, Leaf,
 } from "lucide-react";
 import BlocProgrammes from "./BlocProgrammes";
+import { libelleRegion } from "../data/carte-regions";
 
 const TOUS = "Tous";
 
@@ -41,7 +42,7 @@ export default function Ressources() {
     if (mots === "") return true;
 
     const contenu = sansAccent(
-      [f.titre, f.pratique, f.resume, f.notion, f.region,
+      [f.titre, f.pratique, f.resume, f.notion, libelleRegion(f.region),
        f.enjeu, f.nomVernaculaire, f.programme].join(" ")
     );
     return contenu.includes(mots);
@@ -138,7 +139,7 @@ export default function Ressources() {
 
               <div className="fiche-meta">
                 <span><GraduationCap size={14} /> {libelleNiveau(f.niveau)}</span>
-                <span><MapPin size={14} /> {f.region}</span>
+                <span><MapPin size={14} /> {libelleRegion(f.region)}</span>
               </div>
 
               <span className="fiche-lien">Ouvrir la fiche →</span>
@@ -150,11 +151,11 @@ export default function Ressources() {
   );
 }
 
-function FicheDetail({ fiche, onRetour }) {
+export function FicheDetail({ fiche, onRetour, libelleRetour = "Retour aux ressources" }) {
   return (
     <>
       <button className="bouton-retour" onClick={onRetour}>
-        <ArrowLeft size={16} /> Retour aux ressources
+        <ArrowLeft size={16} /> {libelleRetour}
       </button>
 
       <div className="fiche-haut">
@@ -170,7 +171,7 @@ function FicheDetail({ fiche, onRetour }) {
 
       <div className="detail-meta">
         <span><GraduationCap size={15} /> {libelleNiveau(fiche.niveau)}</span>
-        <span><MapPin size={15} /> {fiche.region}</span>
+        <span><MapPin size={15} /> {libelleRegion(fiche.region)}</span>
         <span><BookMarked size={15} /> {fiche.notion}</span>
       </div>
 

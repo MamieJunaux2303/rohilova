@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { Home, GraduationCap, BookOpen, Map, MessagesSquare } from "lucide-react";
 
 import Accueil from "./pages/Accueil";
 import SeFormer from "./pages/SeFormer";
 import Ressources from "./pages/Ressources";
-import Carte from "./pages/Carte";
 import Communaute from "./pages/Communaute";
 import logo from "./assets/rohilova-logo-entete-fonce.svg";
+// La carte est chargée seulement quand on ouvre l'espace Carte :
+// son tracé ne pèse pas sur le premier chargement de l'application.
+const Carte = lazy(() => import("./pages/Carte"));
 
 const ESPACES = [
   { id: "accueil", label: "Accueil", icone: Home, composant: Accueil },
@@ -52,8 +54,10 @@ export default function App() {
           })}
         </nav>
 
-        <main className="contenu">
-          <PageCourante />
+                <main className="contenu">
+          <Suspense fallback={<p className="chargement">Chargement de la carte…</p>}>
+            <PageCourante />
+          </Suspense>
         </main>
       </div>
 

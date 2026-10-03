@@ -33,8 +33,10 @@ Voir Rohilova_CDC_v3.docx pour le cahier des charges complet.
 3. Navigation : cinq espaces, barre d'onglets mobile + barre latérale
 4. Fichier de données fiches.js, affichage des fiches
 5. Recherche insensible aux accents et filtres
-6. Curriculums, séries, détail de fiche, téléchargement PDF,
-   12 programmes officiels en accordéon replié par défaut
+6. Curriculums, séries, détail de fiche, téléchargement PDF
+7. Se former : cadre de la transposition didactique (définition, utilité,
+   chaînes de Verret, Chevallard, Develay, Perrenoud, exemple malgache) ;
+   parcours des sept moments (9 étapes, progression en localStorage)
 
 ## Fichiers existants
 - src/data/fiches.js : CURRICULUMS, SERIES, NIVEAUX, NOTIONS, TYPES,
@@ -49,9 +51,13 @@ Voir Rohilova_CDC_v3.docx pour le cahier des charges complet.
 - src/App.jsx : en-tête, navigation, sélection de page
 - src/index.css : tous les styles
 - public/programmes/ : 12 PDF officiels
+- src/data/cadres.js : CADRES (transposition disponible, 4 en préparation)
+- src/data/parcours.js : MOMENTS, TEMPS, PARCOURS
+- src/pages/ChaineTD.jsx : dessin d'une chaîne de transposition
+- src/pages/Parcours.jsx : ParcoursCarte, ParcoursVue, progression
+- public/sept-moments/ : badges et figures des sept moments (SVG)
 
 ## Reste à faire
-7. Espace Se former : cadres théoriques et parcours de formation
 8. Espace Carte : 23 régions de Madagascar en GeoJSON
 9. Accueil et finitions mobiles
 10. Transformation en PWA (fonctionnement hors connexion)
