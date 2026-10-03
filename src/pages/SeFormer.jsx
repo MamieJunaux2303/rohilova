@@ -1,4 +1,16 @@
+import { useState } from "react";
+import { CADRES } from "../data/cadres";
+import ChaineTD from "./ChaineTD";
+import { ArrowLeft, BookOpen, Route, Clock } from "lucide-react";
+
 export default function SeFormer() {
+  const [onglet, setOnglet] = useState("cadres");
+  const [cadreOuvert, setCadreOuvert] = useState(null);
+
+  if (cadreOuvert) {
+    return <CadreDetail cadre={cadreOuvert} onRetour={() => setCadreOuvert(null)} />;
+  }
+
   return (
     <>
       <h1 className="titre-page">Se former</h1>
@@ -7,22 +19,134 @@ export default function SeFormer() {
         chimie autrement.
       </p>
 
-      <div className="carte">
-        <h2>Cadres théoriques</h2>
-        <p>
-          Transposition didactique, action conjointe, didactique comparée,
-          approches contextualisées — chaque cadre expliqué en deux pages,
-          avec un exemple malgache.
-        </p>
+      <div className="onglets" role="tablist">
+        <button
+          role="tab"
+          aria-selected={onglet === "cadres"}
+          className={onglet === "cadres" ? "onglet actif" : "onglet"}
+          onClick={() => setOnglet("cadres")}
+        >
+          <span className="onglet-label"><BookOpen size={16} /> Cadres théoriques</span>
+          <span className="onglet-detail">Comprendre les concepts</span>
+        </button>
+        <button
+          role="tab"
+          aria-selected={onglet === "parcours"}
+          className={onglet === "parcours" ? "onglet actif" : "onglet"}
+          onClick={() => setOnglet("parcours")}
+        >
+          <span className="onglet-label"><Route size={16} /> Parcours</span>
+          <span className="onglet-detail">Se former pas à pas</span>
+        </button>
       </div>
 
-      <div className="carte">
-        <h2>Parcours de formation</h2>
-        <p>
-          Parcours courts et progressifs, à suivre à son rythme, avec
-          attestation de participation.
+      {onglet === "cadres" ? (
+        <div className="grille-fiches">
+          {CADRES.map((c) =>
+            c.disponible ? (
+              <button key={c.id} className="fiche" onClick={() => setCadreOuvert(c)}>
+                <h2 className="fiche-titre">{c.nom}</h2>
+                <p className="fiche-pratique">{c.auteurs}</p>
+                <p className="fiche-resume">{c.resume}</p>
+                <span className="fiche-lien">Lire le cadre</span>
+              </button>
+            ) : (
+              <div key={c.id} className="cadre-avenir">
+                <span className="etiquette">
+                  <Clock size={12} /> En préparation
+                </span>
+                <h2 className="fiche-titre">{c.nom}</h2>
+                <p className="fiche-pratique">{c.auteurs}</p>
+                <p className="fiche-resume">{c.resume}</p>
+              </div>
+            )
+          )}
+        </div>
+      ) : (
+        <div className="vide">
+          <p className="vide-titre">Le premier parcours arrive bientôt</p>
+          <p>
+            Construire une séquence en sept moments, ancrée dans une pratique
+            sociale de votre région.
+          </p>
+        </div>
+      )}
+    </>
+  );
+}
+
+function CadreDetail({ cadre, onRetour }) {
+  const [modele, setModele] = useState(cadre.chaines[0].id);
+  const chaineChoisie = cadre.chaines.find((ch) => ch.id === modele);
+
+  return (
+    <>
+      <button className="bouton-retour" onClick={onRetour}>
+        <ArrowLeft size={16} /> Retour aux cadres
+      </button>
+
+      <h1 className="titre-page">{cadre.nom}</h1>
+      <p className="cadre-auteurs">{cadre.auteurs}</p>
+
+      <section className="cadre-section">
+        <h2 className="cadre-section-titre">Définition</h2>
+        {cadre.definition.map((p, i) => (
+          <p key={i} className="cadre-texte">{p}</p>
+        ))}
+      </section>
+
+      <section className="cadre-section">
+        <h2 className="cadre-section-titre">Pourquoi c'est utile en classe</h2>
+        <div className="utilite-liste">
+          {cadre.utilite.map((u) => (
+            <div key={u.titre} className="utilite">
+              <h3 className="utilite-titre">{u.titre}</h3>
+              <p className="cadre-texte">{u.texte}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="cadre-section">
+        <h2 className="cadre-section-titre">Les chaînes de la transposition</h2>
+        <p className="cadre-texte">
+          Choisissez un auteur pour afficher sa chaîne. Les maillons dorés
+          marquent le point de départ, le maillon vert foncé le point d'arrivée.
         </p>
-      </div>
+
+        <div className="choix-modeles" role="group" aria-label="Choisir un modèle">
+          {cadre.chaines.map((ch) => (
+            <button
+              key={ch.id}
+              className={ch.id === modele ? "choix-modele actif" : "choix-modele"}
+              aria-pressed={ch.id === modele}
+              onClick={() => setModele(ch.id)}
+            >
+              {ch.auteur} <span className="choix-annee">{ch.annee}</span>
+            </button>
+          ))}
+        </div>
+
+        <h3 className="chaine-titre">{chaineChoisie.titre}</h3>
+        <ChaineTD chaine={chaineChoisie} />
+
+        {cadre.comparaison.map((p, i) => (
+          <p key={i} className="cadre-texte">{p}</p>
+        ))}
+      </section>
+
+      <section className="cadre-section">
+        <h2 className="cadre-section-titre">Un exemple malgache</h2>
+        <h3 className="chaine-titre">{cadre.exemple.titre}</h3>
+        <ChaineTD chaine={cadre.exemple.chaine} />
+      </section>
+
+      <section className="cadre-section">
+        <h2 className="cadre-section-titre">Références</h2>
+        <ul className="references">
+          {/* À VOUS : afficher chaque référence de cadre.references dans un <li> */}
+        </ul>
+      </section>
     </>
   );
 }
