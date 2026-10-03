@@ -6,6 +6,7 @@ import SeFormer from "./pages/SeFormer";
 import Ressources from "./pages/Ressources";
 import Carte from "./pages/Carte";
 import Communaute from "./pages/Communaute";
+import logo from "./assets/rohilova-logo-entete-fonce.svg";
 
 const ESPACES = [
   { id: "accueil", label: "Accueil", icone: Home, composant: Accueil },
@@ -24,11 +25,13 @@ export default function App() {
   return (
     <div className="app">
       <header className="entete">
-        <div className="logo">R</div>
-        <div>
-          <div className="titre-site">ROHILOVA</div>
-          <div className="sous-titre">EDD · MADAGASCAR</div>
-        </div>
+        <button
+          className="entete-accueil"
+          onClick={() => setPageActive("accueil")}
+          aria-label="ROHILOVA — retour à l'accueil"
+        >
+          <img src={logo} alt="" className="entete-logo" />
+        </button>
       </header>
 
       <div className="corps">

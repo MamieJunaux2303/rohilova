@@ -1,7 +1,7 @@
 import { useState } from "react";
 import {
-  FICHES, NOTIONS, TYPES, NIVEAUX,
-  CURRICULUMS, SERIES, libelleSerie,
+  FICHES, NOTIONS, TYPES, NIVEAUX, SERIES, PROGRAMME,
+  libelleSerie, libelleNiveau,
 } from "../data/fiches";
 import {
   MapPin, GraduationCap, BadgeCheck, Search, X,
@@ -16,7 +16,6 @@ function sansAccent(t) {
 }
 
 export default function Ressources() {
-  const [curriculum, setCurriculum] = useState("ancien");
   const [recherche, setRecherche] = useState("");
   const [niveau, setNiveau] = useState(TOUS);
   const [serie, setSerie] = useState(TOUS);
@@ -28,14 +27,13 @@ export default function Ressources() {
     return <FicheDetail fiche={ficheOuverte} onRetour={() => setFicheOuverte(null)} />;
   }
 
-  const seriesDispo = SERIES[curriculum].filter(
+  const seriesDispo = SERIES.filter(
     (s) => niveau === TOUS || s.niveau === niveau
   );
 
   const mots = sansAccent(recherche.trim());
 
   const resultats = FICHES.filter((f) => {
-    if (f.curriculum !== curriculum) return false;
     if (niveau !== TOUS && f.niveau !== niveau) return false;
     if (serie !== TOUS && !f.series.includes(serie)) return false;
     if (notion !== TOUS && f.notion !== notion) return false;
@@ -58,11 +56,6 @@ export default function Ressources() {
     setNotion(TOUS); setType(TOUS);
   }
 
-  function changerCurriculum(id) {
-    setCurriculum(id);
-    setSerie(TOUS);
-  }
-
   function changerNiveau(n) {
     setNiveau(n);
     setSerie(TOUS);
@@ -76,9 +69,7 @@ export default function Ressources() {
         une notion de chimie à une pratique sociale et à un enjeu de durabilité.
       </p>
 
-    
-
-      <BlocProgrammes curriculum={curriculum} />
+      <BlocProgrammes />
 
       <div className="barre-recherche">
         <Search size={18} className="icone-recherche" />
@@ -93,7 +84,7 @@ export default function Ressources() {
 
       <div className="filtres">
         <Filtre label="Niveau" valeur={niveau} onChange={changerNiveau}
-          options={NIVEAUX.map((n) => ({ id: n, label: n }))} />
+          options={NIVEAUX.map((n) => ({ id: n.id, label: n.label + " (" + n.usuel + ")" }))} />
         <Filtre label="Série" valeur={serie} onChange={setSerie}
           options={seriesDispo.map((s) => ({ id: s.id, label: s.label }))} />
         <Filtre label="Notion" valeur={notion} onChange={setNotion}
@@ -117,8 +108,7 @@ export default function Ressources() {
         <div className="vide">
           <p className="vide-titre">Aucune fiche ne correspond</p>
           <p>
-            Essayez l'autre programme, élargissez la recherche ou retirez
-            un filtre.
+            Élargissez la recherche ou retirez un filtre.
           </p>
         </div>
       ) : (
@@ -141,13 +131,13 @@ export default function Ressources() {
               <div className="series-liste">
                 {f.series.map((s) => (
                   <span key={s} className="serie-puce">
-                    {libelleSerie(f.curriculum, s)}
+                    {libelleSerie(s)}
                   </span>
                 ))}
               </div>
 
               <div className="fiche-meta">
-                <span><GraduationCap size={14} /> {f.niveau}</span>
+                <span><GraduationCap size={14} /> {libelleNiveau(f.niveau)}</span>
                 <span><MapPin size={14} /> {f.region}</span>
               </div>
 
@@ -161,8 +151,6 @@ export default function Ressources() {
 }
 
 function FicheDetail({ fiche, onRetour }) {
-  const nomCurriculum = CURRICULUMS.find((c) => c.id === fiche.curriculum)?.label;
-
   return (
     <>
       <button className="bouton-retour" onClick={onRetour}>
@@ -181,7 +169,7 @@ function FicheDetail({ fiche, onRetour }) {
       <h1 className="titre-page">{fiche.titre}</h1>
 
       <div className="detail-meta">
-        <span><GraduationCap size={15} /> {fiche.niveau}</span>
+        <span><GraduationCap size={15} /> {libelleNiveau(fiche.niveau)}</span>
         <span><MapPin size={15} /> {fiche.region}</span>
         <span><BookMarked size={15} /> {fiche.notion}</span>
       </div>
@@ -193,14 +181,14 @@ function FicheDetail({ fiche, onRetour }) {
       )}
 
       <Bloc titre="Programme scolaire">
-        <p><strong>Curriculum :</strong> {nomCurriculum}</p>
+        <p><strong>Programme :</strong> {PROGRAMME.nom} ({PROGRAMME.sigle} {fiche.niveau.slice(1)})</p>
         <p><strong>Chapitre :</strong> {fiche.programme}</p>
         <p><strong>Référence :</strong> {fiche.reference}</p>
         <p><strong>Séries concernées :</strong></p>
         <div className="series-liste">
           {fiche.series.map((s) => (
             <span key={s} className="serie-puce">
-              {libelleSerie(fiche.curriculum, s)}
+              {libelleSerie(s)}
             </span>
           ))}
         </div>

@@ -4,40 +4,48 @@
 //  l'adapter. Ne pas oublier la virgule entre deux blocs.
 // ─────────────────────────────────────────────────────────────
 
-// ─── Programmes scolaires malgaches ──────────────────────────
-// Réforme de 2018 : de nombreux établissements appliquent
-// encore l'ancien programme. Les deux sont donc maintenus.
+// ─── Programme scolaire de référence ─────────────────────────
+// Depuis la rentrée 2026-2027, le « programme d'études » (PE)
+// s'applique dans tous les établissements. Les classes du lycée
+// s'appellent désormais T10, T11 et T12.
 
-export const CURRICULUMS = [
-  { id: "ancien", label: "Ancien programme", detail: "Physique-Chimie · avant 2018" },
-  { id: "nouveau", label: "Nouveau programme", detail: "Sciences physiques et chimiques · 2018" },
-];
-
-export const SERIES = {
-  ancien: [
-    { id: "2nde-a", niveau: "Seconde", label: "Seconde" },
-    { id: "1ere-a", niveau: "Première", label: "1ère A" },
-    { id: "1ere-cd", niveau: "Première", label: "1ère C et D" },
-    { id: "tle-a", niveau: "Terminale", label: "Tle A" },
-    { id: "tle-cd", niveau: "Terminale", label: "Tle C et D" },
-  ],
-  nouveau: [
-    { id: "2nde-n", niveau: "Seconde", label: "Seconde" },
-    { id: "1ere-l", niveau: "Première", label: "1ère L" },
-    { id: "1ere-ose", niveau: "Première", label: "1ère OSE" },
-    { id: "1ere-s", niveau: "Première", label: "1ère S" },
-    { id: "tle-l", niveau: "Terminale", label: "Tle L" },
-    { id: "tle-ose", niveau: "Terminale", label: "Tle OSE" },
-    { id: "tle-s", niveau: "Terminale", label: "Tle S" },
-  ],
+export const PROGRAMME = {
+  nom: "Programme d'études",
+  sigle: "PE",
+  discipline: "Sciences physiques et chimiques",
+  depuis: "2026-2027",
 };
 
-export const NIVEAUX = ["Seconde", "Première", "Terminale"];
+// id : ce qui est enregistré dans les fiches
+// label : ce qui s'affiche à l'écran
+// usuel : l'ancien nom, encore employé par tout le monde
+export const NIVEAUX = [
+  { id: "T10", label: "T10", usuel: "Seconde" },
+  { id: "T11", label: "T11", usuel: "Première" },
+  { id: "T12", label: "T12", usuel: "Terminale" },
+];
+
+// La T10 est un tronc commun : pas encore de série.
+export const SERIES = [
+  { id: "t10", niveau: "T10", label: "T10" },
+  { id: "t11-l", niveau: "T11", label: "T11 L" },
+  { id: "t11-ose", niveau: "T11", label: "T11 OSE" },
+  { id: "t11-s", niveau: "T11", label: "T11 S" },
+  { id: "t12-l", niveau: "T12", label: "T12 L" },
+  { id: "t12-ose", niveau: "T12", label: "T12 OSE" },
+  { id: "t12-s", niveau: "T12", label: "T12 S" },
+];
 
 // Retrouve le libellé d'une série à partir de son identifiant
-export function libelleSerie(curriculum, idSerie) {
-  const s = SERIES[curriculum]?.find((x) => x.id === idSerie);
+export function libelleSerie(idSerie) {
+  const s = SERIES.find((x) => x.id === idSerie);
   return s ? s.label : idSerie;
+}
+
+// Affiche un niveau sous la forme « T12 · Terminale »
+export function libelleNiveau(idNiveau) {
+  const n = NIVEAUX.find((x) => x.id === idNiveau);
+  return n ? n.label + " · " + n.usuel : idNiveau;
 }
 
 // ─── Listes de référence ─────────────────────────────────────
@@ -66,11 +74,10 @@ export const FICHES = [
     id: 1,
     titre: "La combustion du charbon de bois",
     type: "Séquence",
-    curriculum: "ancien",
-    niveau: "Terminale",
-    series: ["tle-cd"],
+    niveau: "T12",
+    series: ["t12-s"],
     programme: "Chimie organique — les combustions",
-    reference: "Terminale · Partie à préciser",
+    reference: "PE 12 · Partie à préciser",
     notion: "Combustion",
     region: "Haute Matsiatra",
     pratique: "Fabrication et usage du charbon de bois (arina)",
@@ -90,11 +97,10 @@ export const FICHES = [
     id: 2,
     titre: "L'eau du puits est-elle potable ?",
     type: "Activité",
-    curriculum: "nouveau",
-    niveau: "Première",
-    series: ["1ere-s", "1ere-ose"],
+    niveau: "T11",
+    series: ["t11-s", "t11-ose"],
     programme: "Solutions aqueuses — concentration et dissolution",
-    reference: "Première · Partie à préciser",
+    reference: "PE 11 · Partie à préciser",
     notion: "Solutions aqueuses",
     region: "Analamanga",
     pratique: "Approvisionnement en eau de puits en zone périurbaine",
@@ -114,9 +120,8 @@ export const FICHES = [
     id: 3,
     titre: "Grille CER — argumenter en chimie",
     type: "Outil d'évaluation",
-    curriculum: "nouveau",
-    niveau: "Terminale",
-    series: ["tle-l", "tle-ose", "tle-s"],
+    niveau: "T12",
+    series: ["t12-l", "t12-ose", "t12-s"],
     programme: "Transversal — évaluation",
     reference: "Tous niveaux",
     notion: "Combustion",

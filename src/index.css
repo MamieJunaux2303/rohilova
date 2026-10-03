@@ -44,19 +44,26 @@ button:focus-visible { outline: 3px solid var(--or); outline-offset: 2px; }
   z-index: 20;
 }
 
-.logo {
-  width: 40px; height: 40px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--or), #e8c070);
-  color: var(--vert-fonce);
-  font-family: Georgia, serif;
-  font-size: 21px; font-weight: bold;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
+/* Logo de l'en-tête : 52 px de haut sur téléphone,
+   soit environ 160 px de large, la taille minimale
+   fixée par la charte du logo. */
+.entete-accueil {
+  background: none;
+  border: none;
+  padding: 0;
+  border-radius: 6px;
+  display: block;
 }
 
-.titre-site { font-size: 18px; font-weight: bold; letter-spacing: 1px; }
-.sous-titre { font-size: 11px; color: #a8d5c5; letter-spacing: 1px; }
+.entete-logo {
+  display: block;
+  height: 52px;
+  width: auto;
+}
+
+@media (min-width: 820px) {
+  .entete-logo { height: 60px; }
+}git add -A
 
 .contenu {
   flex: 1;
