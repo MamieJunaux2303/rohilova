@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { FICHES, NOTIONS, NIVEAUX } from "../data/fiches";
+import { FICHES, NIVEAUX, notionsDe, fichesDe } from "../data/fiches";
+import { trouverMatiere, TOUTES_MATIERES } from "../data/matieres";
+import EnElaboration from "./EnElaboration";
 import { REGIONS, TOUTES_REGIONS, libelleRegion } from "../data/carte-regions";
 import { VUE_NATIONALE, TRACE_REGIONS, TRACE_DISTRICTS } from "../data/carte-trace";
 import { FicheDetail } from "./Ressources";
 import FicheMini from "./FicheMini";
-import { ArrowLeft, MapPin, Globe, TriangleAlert } from "lucide-react";
+import { ArrowLeft, MapPin, Globe, TriangleAlert, Shapes } from "lucide-react";
 
 const TOUS = "Tous";
 
@@ -34,8 +36,13 @@ function surTouche(action) {
   };
 }
 
-export default function Carte({ intention }) {
-  const [notion, setNotion] = useState(intention?.notion || TOUS);
+export default function Carte({ intention, matiere }) {
+  const notionsDispo = notionsDe(matiere);
+  // La notion demandée (par exemple par le défi du mois) n'est
+  // retenue que si elle existe dans la matière choisie.
+  const [notion, setNotion] = useState(
+    notionsDispo.includes(intention?.notion) ? intention.notion : TOUS
+  );
   const [niveau, setNiveau] = useState(TOUS);
   const [regionId, setRegionId] = useState(null);
   const [districtId, setDistrictId] = useState(null);
@@ -51,11 +58,21 @@ export default function Carte({ intention }) {
     );
   }
 
-  const fiches = FICHES.filter((f) => {
+  // Les fiches de la matière choisie : elles colorent la carte
+  const fiches = fichesDe(matiere).filter((f) => {
     if (notion !== TOUS && f.notion !== notion) return false;
     if (niveau !== TOUS && f.niveau !== niveau) return false;
     return true;
   });
+
+  // Les fiches des autres matières : la même pratique peut servir
+  // à plusieurs matières. Elles sont listées dans le panneau.
+  const autres = FICHES.filter((f) => {
+    if (matiere === TOUTES_MATIERES || f.discipline === matiere) return false;
+    if (niveau !== TOUS && f.niveau !== niveau) return false;
+    return true;
+  });
+  const matiereVide = matiere !== TOUTES_MATIERES && !trouverMatiere(matiere)?.disponible;
 
   // Nombre de fiches rattachées à une région
   function nombreDansRegion(id) {
@@ -79,16 +96,19 @@ export default function Carte({ intention }) {
     <>
       <h1 className="titre-page">Carte des pratiques</h1>
       <p className="intro-page">
-        Les pratiques sociales liées à la chimie, région par région. Chaque
-        fiche est un point de départ possible pour une séquence.
+        Les pratiques sociales liées aux savoirs scolaires, région par région.
+        Une même pratique peut nourrir plusieurs matières : chaque fiche est
+        un point de départ possible pour une séquence.
       </p>
+
+      {matiereVide && <EnElaboration matiere={matiere} quoi="Les fiches" />}
 
       <div className="filtres">
         <label className="filtre">
           <span className="filtre-label">Notion</span>
           <select value={notion} onChange={(e) => setNotion(e.target.value)}>
             <option value={TOUS}>{TOUS}</option>
-            {NOTIONS.map((n) => <option key={n} value={n}>{n}</option>)}
+            {notionsDispo.map((n) => <option key={n} value={n}>{n}</option>)}
           </select>
         </label>
         <label className="filtre">
@@ -136,6 +156,7 @@ export default function Carte({ intention }) {
             <PanneauRegion
               region={region}
               fiches={fiches}
+              autres={autres}
               districtId={districtId}
               onDistrict={setDistrictId}
               onRetour={() => choisirRegion(null)}
@@ -284,13 +305,16 @@ function ListeRegions({ nombreDansRegion, onRegion }) {
 }
 
 // ─── Panneau : une région ────────────────────────────────────
-function PanneauRegion({ region, fiches, districtId, onDistrict, onRetour, onFiche }) {
+function PanneauRegion({ region, fiches, autres, districtId, onDistrict, onRetour, onFiche }) {
   const districts = TRACE_DISTRICTS.filter((d) => d.region === region.id);
   const district = districts.find((d) => d.id === districtId);
   const fichesRegion = fiches.filter((f) => f.region === region.id);
   const affichees = district
     ? fichesRegion.filter((f) => f.district === district.id)
     : fichesRegion;
+  const autresIci = autres.filter(
+    (f) => f.region === region.id && (!district || f.district === district.id)
+  );
 
   return (
     <>
@@ -322,6 +346,15 @@ function PanneauRegion({ region, fiches, districtId, onDistrict, onRetour, onFic
         </div>
       ) : (
         affichees.map((f) => <FicheMini key={f.id} fiche={f} onClick={() => onFiche(f)} />)
+      )}
+
+      {autresIci.length > 0 && (
+        <>
+          <h3 className="carte-sous-titre"><Shapes size={16} /> Dans les autres matières</h3>
+          {autresIci.map((f) => (
+            <FicheMini key={f.id} fiche={f} avecMatiere onClick={() => onFiche(f)} />
+          ))}
+        </>
       )}
 
       <h3 className="carte-sous-titre">Districts</h3>

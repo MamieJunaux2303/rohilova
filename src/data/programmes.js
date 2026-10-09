@@ -4,6 +4,7 @@
 //  Un document par niveau, qui contient les programmes de
 //  toutes les séries de ce niveau.
 //  Fichiers PDF placés dans public/programmes/
+//  disciplines : matières couvertes par le document
 // ─────────────────────────────────────────────────────────────
 
 export const PROGRAMMES = [
@@ -14,6 +15,7 @@ export const PROGRAMMES = [
     contenu: "Seconde · tronc commun",
     fichier: "/programmes/pe-10.pdf",
     taille: "",
+    disciplines: ["chimie", "physique"],
   },
   {
     id: "pe-11",
@@ -22,6 +24,7 @@ export const PROGRAMMES = [
     contenu: "Première · séries L, OSE et S",
     fichier: "/programmes/pe-11.pdf",
     taille: "",
+    disciplines: ["chimie", "physique"],
   },
   {
     id: "pe-12",
@@ -30,5 +33,6 @@ export const PROGRAMMES = [
     contenu: "Terminale · séries L, OSE et S",
     fichier: "/programmes/pe-12.pdf",
     taille: "",
+    disciplines: ["chimie", "physique"],
   },
 ];

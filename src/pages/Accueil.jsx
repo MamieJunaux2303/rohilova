@@ -1,4 +1,6 @@
-import { FICHES } from "../data/fiches";
+import { fichesDe } from "../data/fiches";
+import { MATIERES, TOUTES_MATIERES, libelleMatiere } from "../data/matieres";
+import IconeMatiere from "./IconeMatiere";
 import { PARCOURS, MOMENTS } from "../data/parcours";
 import { BIENVENUE, DEFI } from "../data/accueil";
 import { lireProgression } from "../data/progression";
@@ -11,18 +13,19 @@ import {
 
 const RACCOURCIS = [
   { id: "former", label: "Se former", icone: GraduationCap,
-    texte: "Les cadres de la didactique et le parcours des sept moments." },
+    texte: "Les cadres de la didactique et les méthodes pour intégrer l'EDD, dans toutes les matières." },
   { id: "ressources", label: "Ressources", icone: BookOpen,
-    texte: "Les fiches et les programmes officiels du PE 2026." },
+    texte: "Les fiches de votre matière et les programmes officiels du PE 2026." },
   { id: "carte", label: "Carte", icone: Map,
-    texte: "Les pratiques sociales, région par région et district par district." },
+    texte: "Les pratiques sociales, région par région : une même pratique, plusieurs matières." },
   { id: "communaute", label: "Communauté", icone: MessagesSquare,
     texte: "L'entraide entre collègues. Ouverture prochaine." },
 ];
 
-export default function Accueil({ aller }) {
-  // Les trois fiches les plus récentes (date au format « 2026-09 »)
-  const dernieres = [...FICHES]
+export default function Accueil({ aller, matiere, matiereChoisie, choisirMatiere }) {
+  // Les trois fiches les plus récentes de la matière choisie
+  // (date au format « 2026-09 »)
+  const dernieres = [...fichesDe(matiere)]
     .sort((a, b) => b.date.localeCompare(a.date))
     .slice(0, 3);
 
@@ -41,6 +44,8 @@ export default function Accueil({ aller }) {
         </div>
       </section>
 
+      {matiereChoisie === null && <ChoixMatiere onChoisir={choisirMatiere} />}
+
       {PARCOURS.map((p) => (
         <CarteParcours key={p.id} parcours={p} aller={aller} />
       ))}
@@ -55,15 +60,29 @@ export default function Accueil({ aller }) {
           className="bouton-suivant"
           onClick={() => aller("carte", { notion: DEFI.notion })}
         >
-          Voir la carte : {DEFI.notion.toLowerCase()} <ArrowRight size={16} />
+          Voir la carte <ArrowRight size={16} />
         </button>
       </section>
 
       <section className="accueil-bloc">
-        <h2 className="accueil-bloc-titre">Dernières fiches</h2>
-        {dernieres.map((f) => (
-          <FicheMini key={f.id} fiche={f} onClick={() => aller("ressources", { fiche: f.id })} />
-        ))}
+        <h2 className="accueil-bloc-titre">
+          Dernières fiches
+          {matiere !== TOUTES_MATIERES && " · " + libelleMatiere(matiere)}
+        </h2>
+        {dernieres.length === 0 ? (
+          <p className="accueil-aucune">
+            Les premières fiches de cette matière sont en cours d'élaboration.
+          </p>
+        ) : (
+          dernieres.map((f) => (
+            <FicheMini
+              key={f.id}
+              fiche={f}
+              avecMatiere={matiere === TOUTES_MATIERES}
+              onClick={() => aller("ressources", { fiche: f.id })}
+            />
+          ))
+        )}
         <button className="lien-bouton" onClick={() => aller("ressources")}>
           Toutes les ressources <ArrowRight size={15} />
         </button>
@@ -90,6 +109,34 @@ export default function Accueil({ aller }) {
         Université d'Antananarivo
       </p>
     </>
+  );
+}
+
+// ─── Première visite : quelle matière enseignez-vous ? ───────
+function ChoixMatiere({ onChoisir }) {
+  return (
+    <section className="choix-matiere">
+      <h2 className="accueil-bloc-titre">Quelle matière enseignez-vous ?</h2>
+      <p className="carte-aide">
+        Rohilova affichera d'abord les contenus de votre matière. Vous pourrez
+        changer à tout moment avec la barre des matières, en haut de l'écran.
+      </p>
+      <div className="choix-matiere-grille">
+        {MATIERES.map((m) => (
+          <button key={m.id} className="choix-matiere-bouton" onClick={() => onChoisir(m.id)}>
+            <IconeMatiere id={m.id} size={20} />
+            {m.label}
+          </button>
+        ))}
+        <button
+          className="choix-matiere-bouton"
+          onClick={() => onChoisir(TOUTES_MATIERES)}
+        >
+          <IconeMatiere id={TOUTES_MATIERES} size={20} />
+          Plusieurs matières
+        </button>
+      </div>
+    </section>
   );
 }
 

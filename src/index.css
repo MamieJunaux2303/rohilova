@@ -1480,3 +1480,118 @@ button:focus-visible { outline: 3px solid var(--or); outline-offset: 2px; }
   .accueil-texte { margin: 0; }
   .raccourcis { grid-template-columns: 1fr 1fr; }
 }
+
+/* ═════════════════════════════════════════════════════════════
+   MATIÈRES — séance 11
+   ═════════════════════════════════════════════════════════════ */
+
+/* Barre des matières, sous l'en-tête */
+.barre-matieres {
+  position: relative;
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 8px 16px;
+  background: #0a3226;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  scrollbar-width: thin;
+}
+
+.puce-matiere {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 6px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #d8ece4;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 20px;
+}
+
+.puce-matiere:hover { background: rgba(255, 255, 255, 0.16); }
+
+.puce-matiere.actif {
+  color: var(--vert-fonce);
+  background: var(--or);
+  border-color: var(--or);
+}
+
+/* Matière en cours d'élaboration */
+.en-elaboration {
+  background: var(--blanc);
+  border: 1px dashed #cfc8b8;
+  border-radius: 12px;
+  padding: 20px 18px;
+  margin: 8px 0 20px;
+}
+
+.en-elaboration p { color: var(--gris); margin-bottom: 10px; line-height: 1.65; }
+
+.en-elaboration-etiquette {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--vert) !important;
+  margin-bottom: 4px !important;
+}
+
+.en-elaboration-titre { font-size: 20px; margin-bottom: 8px; }
+
+.en-elaboration .bouton-suivant { margin-left: 0; }
+
+.bandeau-info {
+  font-size: 14px;
+  color: var(--gris);
+  background: #eef4f1;
+  border: 1px solid #cfe2d9;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 18px;
+}
+
+/* Accueil : première visite */
+.choix-matiere {
+  background: var(--blanc);
+  border: 2px solid var(--or);
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 18px;
+}
+
+.choix-matiere-grille {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.choix-matiere-bouton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 8px 12px;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: left;
+  color: var(--vert-fonce);
+  background: var(--fond);
+  border: 1px solid var(--bordure);
+  border-radius: 10px;
+}
+
+.choix-matiere-bouton:hover { border-color: var(--vert); }
+.choix-matiere-bouton svg { flex-shrink: 0; color: var(--vert); }
+
+.accueil-aucune { color: var(--gris); margin-bottom: 6px; }
+
+@media (min-width: 820px) {
+  .barre-matieres { padding: 8px 24px; }
+  .choix-matiere-grille { grid-template-columns: repeat(3, 1fr); }
+}

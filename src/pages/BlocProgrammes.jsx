@@ -20,10 +20,16 @@ function Lien(props) {
   );
 }
 
-export default function BlocProgrammes() {
+export default function BlocProgrammes({ matiere }) {
   const [ouvert, setOuvert] = useState(false);
 
-  const liens = PROGRAMMES.map(function (p) {
+  // Seulement les documents qui couvrent la matière choisie
+  const docs = PROGRAMMES.filter(
+    (p) => matiere === "toutes" || p.disciplines.includes(matiere)
+  );
+  if (docs.length === 0) return null;
+
+  const liens = docs.map(function (p) {
     return <Lien key={p.id} programme={p} />;
   });
 

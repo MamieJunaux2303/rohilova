@@ -10,7 +10,7 @@ export const CADRES = [
     nom: "Transposition didactique",
     auteurs: "Verret, 1975 ; Chevallard, 1985/1991",
     resume:
-      "Comment un savoir de chimiste devient une leçon de lycée, et ce que l'enseignant en fait dans sa classe.",
+      "Comment un savoir savant devient une leçon, et ce que l'enseignant en fait dans sa classe.",
     disponible: true,
 
     // 1. Définir

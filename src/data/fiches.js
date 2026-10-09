@@ -50,14 +50,30 @@ export function libelleNiveau(idNiveau) {
 
 // ─── Listes de référence ─────────────────────────────────────
 
-export const NOTIONS = [
-  "Combustion",
-  "Solutions aqueuses",
-  "Réactions acide-base",
-  "Oxydoréduction",
-  "Polymères",
-  "Cycle du carbone",
-];
+// Notions par matière (identifiants de matieres.js).
+// Ajouter ici les notions d'une matière quand elle s'ouvre.
+export const NOTIONS = {
+  chimie: [
+    "Combustion",
+    "Solutions aqueuses",
+    "Réactions acide-base",
+    "Oxydoréduction",
+    "Polymères",
+    "Cycle du carbone",
+  ],
+};
+
+// Les notions d'une matière, ou de toutes (« toutes »)
+export function notionsDe(matiere) {
+  if (matiere === "toutes") return Object.values(NOTIONS).flat();
+  return NOTIONS[matiere] || [];
+}
+
+// Les fiches d'une matière, ou de toutes (« toutes »)
+export function fichesDe(matiere) {
+  if (matiere === "toutes") return FICHES;
+  return FICHES.filter((f) => f.discipline === matiere);
+}
 
 export const TYPES = [
   "Séquence",
@@ -68,10 +84,12 @@ export const TYPES = [
 ];
 
 // ─── Les fiches ──────────────────────────────────────────────
+// discipline : identifiant de matieres.js (ex. "chimie")
 
 export const FICHES = [
   {
     id: 1,
+    discipline: "chimie",
     titre: "La combustion du charbon de bois",
     type: "Séquence",
     niveau: "T12",
@@ -96,6 +114,7 @@ export const FICHES = [
   },
   {
     id: 2,
+    discipline: "chimie",
     titre: "L'eau du puits est-elle potable ?",
     type: "Activité",
     niveau: "T11",
@@ -120,6 +139,7 @@ export const FICHES = [
   },
   {
     id: 3,
+    discipline: "chimie",
     titre: "Grille CER — argumenter en chimie",
     type: "Outil d'évaluation",
     niveau: "T12",

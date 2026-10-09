@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { CADRES } from "../data/cadres";
+import { libelleMatiere } from "../data/matieres";
 import ChaineTD from "./ChaineTD";
 import { PARCOURS } from "../data/parcours";
 import { ParcoursCarte, ParcoursVue } from "./Parcours";
 import { ArrowLeft, BookOpen, Route, Clock } from "lucide-react";
 
-export default function SeFormer({ intention }) {
+export default function SeFormer({ intention, matiere }) {
   const [onglet, setOnglet] = useState(intention?.parcours ? "parcours" : "cadres");
-    const [cadreOuvert, setCadreOuvert] = useState(null);
+  const [cadreOuvert, setCadreOuvert] = useState(null);
   const [parcoursOuvert, setParcoursOuvert] = useState(
     () => PARCOURS.find((p) => p.id === intention?.parcours) || null
   );
@@ -24,9 +25,19 @@ export default function SeFormer({ intention }) {
     <>
       <h1 className="titre-page">Se former</h1>
       <p className="intro-page">
-        Cadres théoriques de référence et parcours guidés pour enseigner la
-        chimie autrement.
+        Cadres théoriques et parcours guidés pour intégrer l'éducation au
+        développement durable, quelle que soit votre matière.
       </p>
+
+      {matiere !== "chimie" && (
+        <p className="bandeau-info">
+          Ces contenus valent pour toutes les matières. Les exemples sont pour
+          l'instant tirés de la chimie, discipline pilote de Rohilova.
+          {matiere === "toutes"
+            ? " Ceux des autres matières sont en cours d'élaboration."
+            : " Ceux de votre matière (" + libelleMatiere(matiere) + ") sont en cours d'élaboration."}
+        </p>
+      )}
 
       <div className="onglets" role="tablist">
         <button

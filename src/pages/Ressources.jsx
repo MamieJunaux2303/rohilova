@@ -1,7 +1,7 @@
 import { useState } from "react";
 import {
-  FICHES, NOTIONS, TYPES, NIVEAUX, SERIES, PROGRAMME,
-  libelleSerie, libelleNiveau,
+  FICHES, TYPES, NIVEAUX, SERIES, PROGRAMME,
+  libelleSerie, libelleNiveau, notionsDe, fichesDe,
 } from "../data/fiches";
 import {
   MapPin, GraduationCap, BadgeCheck, Search, X,
@@ -9,6 +9,8 @@ import {
 } from "lucide-react";
 import BlocProgrammes from "./BlocProgrammes";
 import { libelleRegion } from "../data/carte-regions";
+import { trouverMatiere, libelleMatiere, TOUTES_MATIERES } from "../data/matieres";
+import EnElaboration from "./EnElaboration";
 
 const TOUS = "Tous";
 
@@ -16,7 +18,7 @@ function sansAccent(t) {
   return t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
-export default function Ressources({ intention }) {
+export default function Ressources({ intention, matiere, aller }) {
   const [recherche, setRecherche] = useState("");
   const [niveau, setNiveau] = useState(TOUS);
   const [serie, setSerie] = useState(TOUS);
@@ -36,7 +38,7 @@ export default function Ressources({ intention }) {
 
   const mots = sansAccent(recherche.trim());
 
-  const resultats = FICHES.filter((f) => {
+  const resultats = fichesDe(matiere).filter((f) => {
     if (niveau !== TOUS && f.niveau !== niveau) return false;
     if (serie !== TOUS && !f.series.includes(serie)) return false;
     if (notion !== TOUS && f.notion !== notion) return false;
@@ -69,10 +71,38 @@ export default function Ressources({ intention }) {
       <h1 className="titre-page">Ressources</h1>
       <p className="intro-page">
         Séquences, activités et outils d'évaluation contextualisés, reliant
-        une notion de chimie à une pratique sociale et à un enjeu de durabilité.
+        une notion du programme à une pratique sociale et à un enjeu de
+        durabilité.
       </p>
 
-      <BlocProgrammes />
+      <BlocProgrammes matiere={matiere} />
+
+      {matiere !== TOUTES_MATIERES && !trouverMatiere(matiere)?.disponible ? (
+        <EnElaboration matiere={matiere} aller={aller} />
+      ) : (
+        <ListeFiches
+          resultats={resultats}
+          matiere={matiere}
+          recherche={recherche} setRecherche={setRecherche}
+          niveau={niveau} changerNiveau={changerNiveau}
+          serie={serie} setSerie={setSerie} seriesDispo={seriesDispo}
+          notion={notion} setNotion={setNotion}
+          type={type} setType={setType}
+          filtreActif={filtreActif} reinitialiser={reinitialiser}
+          onOuvrir={setFicheOuverte}
+        />
+      )}
+    </>
+  );
+}
+
+function ListeFiches({
+  resultats, matiere, recherche, setRecherche, niveau, changerNiveau,
+  serie, setSerie, seriesDispo, notion, setNotion, type, setType,
+  filtreActif, reinitialiser, onOuvrir,
+}) {
+  return (
+    <>
 
       <div className="barre-recherche">
         <Search size={18} className="icone-recherche" />
@@ -91,7 +121,7 @@ export default function Ressources({ intention }) {
         <Filtre label="Série" valeur={serie} onChange={setSerie}
           options={seriesDispo.map((s) => ({ id: s.id, label: s.label }))} />
         <Filtre label="Notion" valeur={notion} onChange={setNotion}
-          options={NOTIONS.map((n) => ({ id: n, label: n }))} />
+          options={notionsDe(matiere).map((n) => ({ id: n, label: n }))} />
         <Filtre label="Type" valeur={type} onChange={setType}
           options={TYPES.map((t) => ({ id: t, label: t }))} />
       </div>
@@ -117,7 +147,7 @@ export default function Ressources({ intention }) {
       ) : (
         <div className="grille-fiches">
           {resultats.map((f) => (
-            <button key={f.id} className="fiche" onClick={() => setFicheOuverte(f)}>
+            <button key={f.id} className="fiche" onClick={() => onOuvrir(f)}>
               <div className="fiche-haut">
                 <span className="etiquette">{f.type}</span>
                 {f.valide && (
@@ -140,6 +170,7 @@ export default function Ressources({ intention }) {
               </div>
 
               <div className="fiche-meta">
+                {matiere === TOUTES_MATIERES && <span>{libelleMatiere(f.discipline)}</span>}
                 <span><GraduationCap size={14} /> {libelleNiveau(f.niveau)}</span>
                 <span><MapPin size={14} /> {libelleRegion(f.region)}</span>
               </div>
@@ -174,7 +205,7 @@ export function FicheDetail({ fiche, onRetour, libelleRetour = "Retour aux resso
       <div className="detail-meta">
         <span><GraduationCap size={15} /> {libelleNiveau(fiche.niveau)}</span>
         <span><MapPin size={15} /> {libelleRegion(fiche.region)}</span>
-        <span><BookMarked size={15} /> {fiche.notion}</span>
+        <span><BookMarked size={15} /> {libelleMatiere(fiche.discipline)}, {fiche.notion}</span>
       </div>
 
       {fiche.fichier && (

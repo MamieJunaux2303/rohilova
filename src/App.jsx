@@ -5,7 +5,10 @@ import Accueil from "./pages/Accueil";
 import SeFormer from "./pages/SeFormer";
 import Ressources from "./pages/Ressources";
 import Communaute from "./pages/Communaute";
+import BarreMatieres from "./pages/BarreMatieres";
 import logo from "./assets/rohilova-logo-entete-fonce.svg";
+import { lireMatiere, enregistrerMatiere, TOUTES_MATIERES } from "./data/matieres";
+
 // La carte est chargée seulement quand on ouvre l'espace Carte :
 // son tracé ne pèse pas sur le premier chargement de l'application.
 const Carte = lazy(() => import("./pages/Carte"));
@@ -23,6 +26,16 @@ export default function App() {
   // Ce qu'il faut ouvrir en arrivant sur la page (une fiche,
   // un parcours, un filtre…), ou null
   const [intention, setIntention] = useState(null);
+
+  // Matière choisie (mémorisée sur l'appareil). null à la
+  // première visite : l'Accueil demande alors de choisir.
+  const [matiereChoisie, setMatiereChoisie] = useState(lireMatiere);
+  const matiere = matiereChoisie || TOUTES_MATIERES;
+
+  function choisirMatiere(id) {
+    setMatiereChoisie(id);
+    enregistrerMatiere(id);
+  }
 
   function aller(id, nouvelleIntention = null) {
     setPageActive(id);
@@ -45,6 +58,8 @@ export default function App() {
         </button>
       </header>
 
+      <BarreMatieres matiere={matiere} onChoisir={choisirMatiere} />
+
       <div className="corps">
         <nav className="nav-laterale">
           <div className="nav-laterale-titre">NAVIGATION</div>
@@ -63,9 +78,16 @@ export default function App() {
           })}
         </nav>
 
-                <main className="contenu">
+        <main className="contenu">
           <Suspense fallback={<p className="chargement">Chargement de la carte…</p>}>
-            <PageCourante key={pageActive} aller={aller} intention={intention} />
+            <PageCourante
+              key={pageActive + matiere}
+              aller={aller}
+              intention={intention}
+              matiere={matiere}
+              matiereChoisie={matiereChoisie}
+              choisirMatiere={choisirMatiere}
+            />
           </Suspense>
         </main>
       </div>
