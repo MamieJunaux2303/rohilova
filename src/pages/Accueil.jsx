@@ -106,7 +106,7 @@ export default function Accueil({ aller, matiere, matiereChoisie, choisirMatiere
 
       <p className="accueil-pied">
         Rohilova, version 0.1 · École Normale Supérieure de Fianarantsoa ·
-        Université d'Antananarivo
+        ED PE2Di Université d'Antananarivo
       </p>
     </>
   );

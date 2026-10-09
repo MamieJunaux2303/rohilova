@@ -871,6 +871,7 @@ button:focus-visible { outline: 3px solid var(--or); outline-offset: 2px; }
   color: var(--gris);
   padding-left: 22px;
   text-indent: -22px;
+  overflow-wrap: anywhere;
 }
 /* ═════════════════════════════════════════════════════════════
    PARCOURS — séance 7b

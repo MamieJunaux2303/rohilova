@@ -191,8 +191,8 @@ export const METHODES = [
     ],
     references: [
       "Kilpatrick, W. H. (1918). The project method. Teachers College Record, 19(4), 319-335.",
-      "Perrenoud, P. (1999). Apprendre à l'école à travers des projets : pourquoi ? comment ? Éducateur, 14, 6-11.",
-      "Sterling, S. (2001). Sustainable Education: Re-visioning Learning and Change. Green Books.",
+      "Perrenoud, P. (1999). Apprendre à l'école à travers des projets : pourquoi ? comment ? Université de Genève. https://www.unige.ch/fapse/SSE/teachers/perrenoud/php_main/php_1999/1999_17.html",
+      "Sterling, S. (2001). Sustainable education: Re-visioning learning and change (Schumacher Briefings, 6). Green Books.",
     ],
   },
   {

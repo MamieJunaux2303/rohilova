@@ -150,11 +150,11 @@ const CADRES_DIDACTIQUES = [
     references: [
       "Brousseau, G. (1998). Théorie des situations didactiques. La Pensée Sauvage.",
       "Chevallard, Y. (1991). La transposition didactique : du savoir savant au savoir enseigné (2e éd.). La Pensée Sauvage. (1re éd. 1985)",
-      "Develay, M. (1992). De l'apprentissage à l'enseignement. ESF.",
-      "Martinand, J.-L. (1986). Connaître et transformer la matière. Peter Lang.",
+      "Develay, M. (1992). De l'apprentissage à l'enseignement : pour une épistémologie scolaire. ESF.",
+      "Martinand, J.-L. (1986). Connaître et transformer la matière : des objectifs pour l'initiation aux sciences et techniques. Peter Lang.",
       "Perrenoud, P. (1998). La transposition didactique à partir de pratiques : des savoirs aux compétences. Revue des sciences de l'éducation, 24(3), 487-514.",
       "Tsimilaza, A., & Randriamanantena, M. S. J. P. (2024). Considération du rapport sciences-sociétés et acculturation scientifique dans l'enseignement/apprentissage de chimie. Revue Hybrides, 2(4), 321-337.",
-      "Verret, M. (1975). Le temps des études. Honoré Champion.",
+      "Verret, M. (1975). Le temps des études [Thèse de doctorat, Université Paris 5, 1974]. Atelier de reproduction des thèses ; Honoré Champion.",
     ],
   },
 

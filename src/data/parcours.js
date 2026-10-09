@@ -256,5 +256,17 @@ export const PARCOURS = [
       conclusion:
         "Bientôt, vous pourrez déposer votre séquence dans l'espace Ressources pour la partager avec vos collègues.",
     },
+
+    // Références citées dans les sept moments
+    references: [
+      "Brousseau, G. (1998). Théorie des situations didactiques. La Pensée Sauvage.",
+      "Clément, P. (2006). Didactic transposition and the KVP model: Conceptions as interactions between scientific knowledge, values and social practices. In Proceedings of the ESERA Summer School 2006 (pp. 9-18). IEC, Universidade do Minho.",
+      "Fabre, M. (2009). Philosophie et pédagogie du problème. Vrin.",
+      "Martinand, J.-L. (1986). Connaître et transformer la matière : des objectifs pour l'initiation aux sciences et techniques. Peter Lang.",
+      "McNeill, K. L., & Krajcik, J. (2012). Supporting grade 5-8 students in constructing explanations in science: The claim, evidence, and reasoning framework for talk and writing. Pearson.",
+      "Orange, C. (2012). Enseigner les sciences : problèmes, débats et savoirs scientifiques en classe. De Boeck.",
+      "Posner, G. J., Strike, K. A., Hewson, P. W., & Gertzog, W. A. (1982). Accommodation of a scientific conception: Toward a theory of conceptual change. Science Education, 66(2), 211-227. https://doi.org/10.1002/sce.3730660207",
+      "Sjöström, J., & Talanquer, V. (2014). Humanizing chemistry education: From simple contextualization to multifaceted problematization. Journal of Chemical Education, 91(8), 1125-1131. https://doi.org/10.1021/ed5000718",
+    ],
   },
 ];

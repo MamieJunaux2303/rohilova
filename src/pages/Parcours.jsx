@@ -17,8 +17,8 @@ function nomEtape(id) {
 
 // ─── Barre de progression ────────────────────────────────────
 export function Progression({ faites, total }) {
-  // À VOUS : calculer le pourcentage d'étapes terminées, arrondi à l'unité
-  const pourcentage = 0;
+  // Part des étapes terminées, arrondie à l'unité
+  const pourcentage = Math.round((faites / total) * 100);
   return (
     <div className="progression">
       <div
@@ -118,7 +118,9 @@ export function ParcoursVue({ parcours, onRetour }) {
 
       <article className="etape">
         {courante === "vue" && <VueEnsemble vue={parcours.vue} />}
-        {courante === "synthese" && <Synthese synthese={parcours.synthese} />}
+        {courante === "synthese" && (
+          <Synthese synthese={parcours.synthese} references={parcours.references} />
+        )}
         {trouverMoment(courante) && <Moment moment={trouverMoment(courante)} />}
       </article>
 
@@ -271,7 +273,7 @@ function Moment({ moment }) {
   );
 }
 
-function Synthese({ synthese }) {
+function Synthese({ synthese, references }) {
   return (
     <>
       <h2 className="cadre-section-titre">Synthèse : vérifier sa séquence</h2>
@@ -300,6 +302,11 @@ function Synthese({ synthese }) {
       </ol>
 
       <p className="cadre-texte">{synthese.conclusion}</p>
+
+      <h3 className="sous-titre-etape">Références</h3>
+      <ul className="references">
+        {references.map((r) => <li key={r}>{r}</li>)}
+      </ul>
     </>
   );
 }

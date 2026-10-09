@@ -130,7 +130,7 @@ export const BASES = [
       "Meirieu, P. (1987). Apprendre… oui, mais comment ? ESF.",
       "Piaget, J. (1975). L'équilibration des structures cognitives. PUF.",
       "Roegiers, X. (2000). Une pédagogie de l'intégration. De Boeck.",
-      "Vygotski, L. S. (1997). Pensée et langage (F. Sève, Trad.). La Dispute. (Ouvrage original publié en 1934)",
+      "Vygotski, L. S. (1997). Pensée et langage (F. Sève, Trad. ; 3e éd.). La Dispute. (Ouvrage original publié en 1934)",
     ],
   },
 
@@ -424,13 +424,13 @@ export const BASES = [
     ],
 
     references: [
-      "Astolfi, J.-P., & Peterfalvi, B. (1993). Obstacles et construction de situations didactiques en sciences expérimentales. Aster, 16, 103-141.",
+      "Astolfi, J.-P., & Peterfalvi, B. (1993). Obstacles et construction de situations didactiques en sciences expérimentales. Aster, 16 (Modèles pédagogiques 1), 103-141.",
       "Bachelard, G. (1938). La formation de l'esprit scientifique. Vrin.",
-      "Clément, P. (2006). Didactic transposition and KVP model: Conceptions as interactions between scientific knowledge, values and social practices. Proceedings of the ESERA Summer School, 9-18.",
+      "Clément, P. (2006). Didactic transposition and the KVP model: Conceptions as interactions between scientific knowledge, values and social practices. In Proceedings of the ESERA Summer School 2006 (pp. 9-18). IEC, Universidade do Minho.",
       "Driver, R., Guesne, E., & Tiberghien, A. (Dir.). (1985). Children's ideas in science. Open University Press.",
       "Giordan, A., & De Vecchi, G. (1987). Les origines du savoir : des conceptions des apprenants aux concepts scientifiques. Delachaux et Niestlé.",
-      "Martinand, J.-L. (1986). Connaître et transformer la matière. Peter Lang.",
-      "Posner, G. J., Strike, K. A., Hewson, P. W., & Gertzog, W. A. (1982). Accommodation of a scientific conception: Toward a theory of conceptual change. Science Education, 66(2), 211-227.",
+      "Martinand, J.-L. (1986). Connaître et transformer la matière : des objectifs pour l'initiation aux sciences et techniques. Peter Lang.",
+      "Posner, G. J., Strike, K. A., Hewson, P. W., & Gertzog, W. A. (1982). Accommodation of a scientific conception: Toward a theory of conceptual change. Science Education, 66(2), 211-227. https://doi.org/10.1002/sce.3730660207",
     ],
   },
 ];

@@ -219,7 +219,7 @@ function CadreDetail({ cadre, matiere, onRetour }) {
       <section className="cadre-section">
         <h2 className="cadre-section-titre">Références</h2>
         <ul className="references">
-          {/* À VOUS : afficher chaque référence de cadre.references dans un <li> */}
+          {cadre.references.map((r) => <li key={r}>{r}</li>)}
         </ul>
       </section>
     </>
