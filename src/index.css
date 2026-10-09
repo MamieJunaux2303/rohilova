@@ -1708,3 +1708,74 @@ h4.fiche-titre { font-size: 17px; }
 .exemple-matiere p { color: var(--gris); line-height: 1.6; }
 
 .vigilance .liste-puces { color: var(--texte); }
+
+/* ═════════════════════════════════════════════════════════════
+   LES BASES — séance 12b
+   ═════════════════════════════════════════════════════════════ */
+
+.groupe-cadres { margin-bottom: 26px; }
+.groupe-cadres-titre { font-size: 20px; margin-bottom: 2px; }
+h3.fiche-titre { font-size: 17px; }
+
+/* Courants pédagogiques et concepts clés */
+.courants { display: grid; gap: 12px; }
+
+.courant {
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-left: 4px solid var(--vert);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+
+.courant-nom { font-size: 17px; }
+
+.courant-auteurs {
+  font-size: 14px;
+  font-style: italic;
+  color: var(--vert);
+  margin-bottom: 8px;
+}
+
+.courant .cadre-texte { margin-bottom: 8px; }
+.courant-classe,
+.courant-limite { font-size: 15px; color: var(--gris); line-height: 1.6; }
+.courant-limite { margin-top: 6px; }
+
+/* Tableau comparatif */
+.comparatif { display: grid; gap: 12px; }
+
+.comparatif-ligne {
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.comparatif-critere { font-size: 16px; margin-bottom: 8px; }
+
+.comparatif-valeurs { display: grid; gap: 8px; }
+
+.comparatif-valeur {
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #eef4f1;
+}
+
+.comparatif-valeur:nth-child(2) { background: #fbf3e0; }
+
+.comparatif-colonne {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--vert-fonce);
+  margin-bottom: 2px;
+}
+
+.comparatif-valeur p { line-height: 1.55; }
+
+@media (min-width: 560px) {
+  .comparatif-valeurs { grid-template-columns: 1fr 1fr; }
+}

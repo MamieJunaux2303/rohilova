@@ -4,9 +4,13 @@
 //  validé. Les autres s'affichent comme « en préparation ».
 // ─────────────────────────────────────────────────────────────
 
-export const CADRES = [
+import { BASES } from "./cadres-bases";
+
+// Les cadres didactiques ; les bases sont dans cadres-bases.js
+const CADRES_DIDACTIQUES = [
   {
     id: "transposition",
+    groupe: "cadres",
     nom: "Transposition didactique",
     auteurs: "Verret, 1975 ; Chevallard, 1985/1991",
     resume:
@@ -157,20 +161,15 @@ export const CADRES = [
   // ─── Cadres en préparation ───
   {
     id: "action-conjointe",
+    groupe: "cadres",
     nom: "Action conjointe en didactique",
     auteurs: "Sensevy, 2011",
     resume: "Analyser comment l'enseignant et les élèves font avancer ensemble le savoir en classe.",
     disponible: false,
   },
   {
-    id: "didactique-comparee",
-    nom: "Didactique comparée",
-    auteurs: "Ligozat et Buyck, 2024",
-    resume: "Comparer des situations d'enseignement pour dégager ce qui varie et ce qui reste constant.",
-    disponible: false,
-  },
-  {
     id: "approches-contextualisees",
+    groupe: "cadres",
     nom: "Approches contextualisées",
     auteurs: "Bennett, Lubben et Hogarth, 2007",
     resume: "Partir de situations de la vie réelle pour enseigner les notions scientifiques.",
@@ -178,9 +177,18 @@ export const CADRES = [
   },
   {
     id: "qsv",
+    groupe: "cadres",
     nom: "Questions socialement vives",
     auteurs: "Legardez et Simonneaux, 2006",
     resume: "Enseigner à partir de questions qui font débat dans la société et chez les scientifiques.",
     disponible: false,
   },
+];
+
+// Toutes les fiches de l'onglet, les bases en premier
+export const CADRES = [...BASES, ...CADRES_DIDACTIQUES];
+
+export const GROUPES_CADRES = [
+  { id: "bases", titre: "Les bases", texte: "Les notions à maîtriser avant tout : ce que sont la pédagogie et la didactique, et ce que pensent déjà les élèves." },
+  { id: "cadres", titre: "Les cadres didactiques", texte: "Des cadres théoriques pour analyser et concevoir l'enseignement." },
 ];

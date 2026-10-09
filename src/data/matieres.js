@@ -15,9 +15,11 @@ export const MATIERES = [
   { id: "mathematiques", label: "Mathématiques", court: "Maths", disponible: false },
   { id: "svt", label: "Sciences de la vie et de la Terre", court: "SVT", disponible: false },
   { id: "histoire-geographie", label: "Histoire-Géographie", court: "Hist.-Géo", disponible: false },
+  { id: "ses", label: "Sciences économiques et sociales", court: "SES", disponible: false },
   { id: "lettres-langues", label: "Lettres et langues", court: "Lettres et langues", disponible: false },
   { id: "philosophie", label: "Philosophie", court: "Philosophie", disponible: false },
   { id: "eac", label: "Éducation à la citoyenneté", court: "Citoyenneté (EAC)", disponible: false },
+  { id: "tice", label: "TICE : technologies de l'information et de la communication", court: "TICE", disponible: false },
 ];
 
 export function trouverMatiere(id) {
