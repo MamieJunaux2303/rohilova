@@ -1595,3 +1595,116 @@ button:focus-visible { outline: 3px solid var(--or); outline-offset: 2px; }
   .barre-matieres { padding: 8px 24px; }
   .choix-matiere-grille { grid-template-columns: repeat(3, 1fr); }
 }
+
+/* ═════════════════════════════════════════════════════════════
+   INTÉGRER L'EDD — séance 12
+   ═════════════════════════════════════════════════════════════ */
+
+/* Trois onglets sur téléphone : on masque la ligne de détail */
+@media (max-width: 559px) {
+  .onglets { gap: 6px; }
+  .onglet { padding: 10px 8px; text-align: center; }
+  .onglet-label { justify-content: center; font-size: 14px; flex-direction: column; gap: 3px; }
+  .onglet-detail { display: none; }
+}
+
+.niveau-integration {
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 18px;
+}
+
+.niveau-entete {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.niveau-numero {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 22px;
+  font-weight: bold;
+  color: var(--vert-fonce);
+  background: var(--or);
+  border-radius: 50%;
+}
+
+.niveau-surtitre {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--vert);
+}
+
+.niveau-titre { font-size: 21px; }
+
+.niveau-sous-titre {
+  font-size: 16px;
+  margin: 16px 0 8px;
+}
+
+.niveau-etapes,
+.etapes-methode {
+  padding-left: 22px;
+  display: grid;
+  gap: 6px;
+}
+
+.niveau-etapes li { line-height: 1.6; }
+
+.niveau-limite {
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--gris);
+}
+
+.niveau-integration .fiche,
+.niveau-integration .cadre-avenir { background: var(--fond); }
+
+h4.fiche-titre { font-size: 17px; }
+
+/* Page d'une méthode */
+.liste-puces {
+  padding-left: 20px;
+  display: grid;
+  gap: 6px;
+  line-height: 1.6;
+}
+
+.etapes-methode { gap: 12px; }
+.etapes-methode strong { color: var(--vert-fonce); }
+.etapes-methode p { color: var(--gris); line-height: 1.6; }
+
+.exemples-matieres { list-style: none; display: grid; gap: 10px; }
+
+.exemple-matiere {
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.exemple-matiere.votre { border: 2px solid var(--or); background: #fffaf0; }
+
+.exemple-matiere-nom {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-weight: 700;
+  color: var(--vert-fonce);
+  margin-bottom: 4px;
+}
+
+.exemple-matiere-nom svg { color: var(--vert); }
+.exemple-matiere p { color: var(--gris); line-height: 1.6; }
+
+.vigilance .liste-puces { color: var(--texte); }

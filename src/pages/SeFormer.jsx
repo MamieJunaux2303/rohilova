@@ -4,17 +4,40 @@ import { libelleMatiere } from "../data/matieres";
 import ChaineTD from "./ChaineTD";
 import { PARCOURS } from "../data/parcours";
 import { ParcoursCarte, ParcoursVue } from "./Parcours";
-import { ArrowLeft, BookOpen, Route, Clock } from "lucide-react";
+import { ListeIntegration, MethodeDetail } from "./IntegrerEDD";
+import { ArrowLeft, BookOpen, Route, Clock, Sprout } from "lucide-react";
+
+const ONGLETS = [
+  { id: "cadres", label: "Cadres théoriques", detail: "Comprendre les concepts", icone: BookOpen },
+  { id: "integrer", label: "Intégrer l'EDD", detail: "Choisir une méthode", icone: Sprout },
+  { id: "parcours", label: "Parcours", detail: "Se former pas à pas", icone: Route },
+];
 
 export default function SeFormer({ intention, matiere }) {
   const [onglet, setOnglet] = useState(intention?.parcours ? "parcours" : "cadres");
   const [cadreOuvert, setCadreOuvert] = useState(null);
+  const [methodeOuverte, setMethodeOuverte] = useState(null);
   const [parcoursOuvert, setParcoursOuvert] = useState(
     () => PARCOURS.find((p) => p.id === intention?.parcours) || null
   );
 
   if (cadreOuvert) {
     return <CadreDetail cadre={cadreOuvert} onRetour={() => setCadreOuvert(null)} />;
+  }
+
+  if (methodeOuverte) {
+    return (
+      <MethodeDetail
+        methode={methodeOuverte}
+        matiere={matiere}
+        onRetour={() => setMethodeOuverte(null)}
+        onParcours={() => {
+          setMethodeOuverte(null);
+          setParcoursOuvert(PARCOURS.find((p) => p.id === methodeOuverte.parcours));
+          window.scrollTo(0, 0);
+        }}
+      />
+    );
   }
 
   if (parcoursOuvert) {
@@ -25,11 +48,12 @@ export default function SeFormer({ intention, matiere }) {
     <>
       <h1 className="titre-page">Se former</h1>
       <p className="intro-page">
-        Cadres théoriques et parcours guidés pour intégrer l'éducation au
-        développement durable, quelle que soit votre matière.
+        Cadres théoriques, méthodes et parcours guidés pour intégrer
+        l'éducation au développement durable, quelle que soit votre matière.
       </p>
 
-      {matiere !== "chimie" && (
+      {/* Les méthodes ont déjà des exemples par matière : bandeau inutile */}
+      {matiere !== "chimie" && onglet !== "integrer" && (
         <p className="bandeau-info">
           Ces contenus valent pour toutes les matières. Les exemples sont pour
           l'instant tirés de la chimie, discipline pilote de Rohilova.
@@ -40,24 +64,21 @@ export default function SeFormer({ intention, matiere }) {
       )}
 
       <div className="onglets" role="tablist">
-        <button
-          role="tab"
-          aria-selected={onglet === "cadres"}
-          className={onglet === "cadres" ? "onglet actif" : "onglet"}
-          onClick={() => setOnglet("cadres")}
-        >
-          <span className="onglet-label"><BookOpen size={16} /> Cadres théoriques</span>
-          <span className="onglet-detail">Comprendre les concepts</span>
-        </button>
-        <button
-          role="tab"
-          aria-selected={onglet === "parcours"}
-          className={onglet === "parcours" ? "onglet actif" : "onglet"}
-          onClick={() => setOnglet("parcours")}
-        >
-          <span className="onglet-label"><Route size={16} /> Parcours</span>
-          <span className="onglet-detail">Se former pas à pas</span>
-        </button>
+        {ONGLETS.map((o) => {
+          const Icone = o.icone;
+          return (
+            <button
+              key={o.id}
+              role="tab"
+              aria-selected={onglet === o.id}
+              className={onglet === o.id ? "onglet actif" : "onglet"}
+              onClick={() => setOnglet(o.id)}
+            >
+              <span className="onglet-label"><Icone size={16} /> {o.label}</span>
+              <span className="onglet-detail">{o.detail}</span>
+            </button>
+          );
+        })}
       </div>
 
       {onglet === "cadres" ? (
@@ -82,8 +103,12 @@ export default function SeFormer({ intention, matiere }) {
             )
           )}
         </div>
-      ) : (
-                <div className="grille-fiches">
+      ) : null}
+
+      {onglet === "integrer" && <ListeIntegration onMethode={setMethodeOuverte} />}
+
+      {onglet === "parcours" && (
+        <div className="grille-fiches">
           {PARCOURS.map((p) => (
             <ParcoursCarte key={p.id} parcours={p} onOuvrir={() => setParcoursOuvert(p)} />
           ))}
