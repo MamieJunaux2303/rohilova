@@ -17,7 +17,25 @@
     <meta name="theme-color" content="#0D3B2E" />
   </head>
   <body>
-    <div id="root"></div>
+        <div id="root">
+      <!-- Affiché le temps du chargement, puis remplacé par l'application.
+           Si l'application ne démarre pas, ce message reste visible. -->
+      <div style="font-family: system-ui, sans-serif; max-width: 480px; margin: 48px auto; padding: 0 20px; color: #1c1c1c; line-height: 1.6;">
+        <p style="font-size: 20px; font-weight: bold; color: #0d3b2e;">Rohilova</p>
+        <p>Chargement en cours…</p>
+        <p style="color: #5a5a5a; font-size: 15px;">
+          Si cette page reste vide ou bloquée, votre navigateur est peut-être
+          trop ancien. Ouvrez ce lien dans Google Chrome, ou mettez à jour
+          votre navigateur depuis le Play Store.
+        </p>
+      </div>
+    </div>
+    <noscript>
+      <p style="font-family: system-ui, sans-serif; padding: 20px;">
+        Rohilova a besoin de JavaScript pour fonctionner. Activez-le dans les
+        réglages de votre navigateur, ou ouvrez ce lien dans Google Chrome.
+      </p>
+    </noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
